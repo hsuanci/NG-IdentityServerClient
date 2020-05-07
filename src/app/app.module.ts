@@ -10,6 +10,8 @@ import { ConfigService } from './main/service/service';
 import { RouterModule, Routes } from '@angular/router';
 import { appRoutes } from '../router/index';
 
+import { tokenModel } from '../app/model/codeModel';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,7 +22,10 @@ import { appRoutes } from '../router/index';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [ConfigService],
+  providers: [
+    ConfigService,
+    //tokenModel
+   ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
