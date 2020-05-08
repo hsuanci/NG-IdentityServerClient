@@ -2,14 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/AuthService';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as jwt_decode from 'jwt-decode';
+import { WeatherForecastModel } from 'src/app/model/WeatherForecastModel';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css'],
 })
+
 export class MainComponent implements OnInit {
-  apiData: string;
+  apiData: WeatherForecastModel;
   constructor(
     private AuthService: AuthService,
     private route: ActivatedRoute
@@ -38,7 +40,10 @@ export class MainComponent implements OnInit {
       // Get API
     } else {
       this.AuthService.getAPIData().subscribe(
-        (data) => (this.apiData = JSON.stringify(data)),
+        data => {
+          this.apiData = data;
+          console.log(this.apiData)
+        },
         (error) => {
           if (error.status === 401) {
             console.log(error.message);
