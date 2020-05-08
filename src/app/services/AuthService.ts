@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { tokenModel } from '../model/codeModel';
+import { WeatherForecastModel } from '../model/WeatherForecastModel';
+
 
 @Injectable()
 export class AuthService {
   tokenData: tokenModel;
-  apiData: any;
+  apiData: WeatherForecastModel;
   constructor(private http: HttpClient) {}
   getTokenData(code: string) {
     const headers = new HttpHeaders({
@@ -34,7 +36,7 @@ export class AuthService {
     );
   }
   getAPIData() {
-    let apiData: any;
+    let apiData: WeatherForecastModel;
 
     const headers = new HttpHeaders({
       Authorization: `Bearer ${localStorage.getItem('access_token')}`,
@@ -42,7 +44,7 @@ export class AuthService {
     const options = {
       headers,
     };
-    return this.http.get<any>(
+    return this.http.get<WeatherForecastModel>(
       `https://localhost:44398/weatherforecast`,
       options
     );
