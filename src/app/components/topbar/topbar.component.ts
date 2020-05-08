@@ -27,4 +27,12 @@ export class TopbarComponent implements OnInit {
       this.tokenlifeTime = 0;
     }
   }
+  logout(): void {
+    console.log('logout start, clearing token !');
+    setTimeout(() => {
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('refresh_token');
+      window.location.href = './home';
+    }, 5000);
+  }
 }

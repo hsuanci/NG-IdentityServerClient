@@ -1,9 +1,25 @@
 <nav class="navbar navbar-dark bg-dark">
   <a class="navbar-brand">IdentityServer4(oAuth) Client Demo - Henry</a>
-  <form class="form-inline">
-    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-    <button class="btn btn-outline-primary">
-      <countdown style="color:white;" [config]="{leftTime: tokenlifeTime}"></countdown>
+
+  <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+    <li class="nav-item">
+      <button class="btn btn-primary mr-sm-2" (click)="logout()">
+        Logout
       </button>
+    </li>
+  </ul>
+  <form class="form-inline">
+    <input
+      class="form-control mr-sm-2"
+      type="search"
+      placeholder="Search"
+      aria-label="Search"
+    />
+    <button class="btn btn-outline-primary mr-sm-2">
+      <countdown
+        style="color: white;"
+        [config]="{ leftTime: tokenlifeTime }"
+      ></countdown>
+    </button>
   </form>
 </nav>

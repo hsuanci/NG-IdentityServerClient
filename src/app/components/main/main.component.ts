@@ -9,7 +9,6 @@ import { WeatherForecastModel } from 'src/app/model/WeatherForecastModel';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css'],
 })
-
 export class MainComponent implements OnInit {
   apiData: WeatherForecastModel;
   constructor(
@@ -40,9 +39,8 @@ export class MainComponent implements OnInit {
       // Get API
     } else {
       this.AuthService.getAPIData().subscribe(
-        data => {
+        (data) => {
           this.apiData = data;
-          console.log(this.apiData)
         },
         (error) => {
           if (error.status === 401) {
