@@ -3,28 +3,35 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { MainComponent } from './main/main.component';
 
-import { ConfigService } from './main/service/service';
+import { AuthService } from './services/AuthService';
 import { RouterModule, Routes } from '@angular/router';
 import { appRoutes } from '../router/index';
 
-import { tokenModel } from '../app/model/codeModel';
+import { MatSliderModule } from '@angular/material/slider';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CountdownModule } from 'ngx-countdown';
+
+import { MainComponent } from './components/main/main.component';
+import { AppComponent } from './app.component';
+import { TopbarComponent } from './components/topbar/topbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainComponent,
+    TopbarComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSliderModule,
+    BrowserAnimationsModule,
+    CountdownModule,
   ],
   providers: [
-    ConfigService,
-    //tokenModel
+    AuthService,
    ],
   bootstrap: [AppComponent]
 })
