@@ -28,7 +28,7 @@ export class TopbarComponent implements OnInit {
     }
   }
   logout(): void {
-    console.log('logout start, clearing token !');
+    console.log('logout start, remove token from localstorage!');
     setTimeout(() => {
       localStorage.removeItem('access_token');
       localStorage.removeItem('refresh_token');
