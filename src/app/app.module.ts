@@ -1,9 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 
-import { AuthService } from './services/AuthService';
+import { JwtokenService } from './authentication/JwtokenService';
+import { OauthService } from './authentication/OauthService';
+import { AuthGuardService } from './authentication/AuthGuardService';
+
 import { RouterModule, Routes } from '@angular/router';
 
 import {MatTableModule} from '@angular/material/table';
@@ -14,12 +17,15 @@ import { MainComponent } from './components/main/main.component';
 import { AppComponent } from './app.component';
 import { TopbarComponent } from './components/topbar/topbar.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { LoginComponent } from './components/login/login.component'
+import { RequestTimeLogHttpInterceptor, TokenAuthHttpInterceptor } from './authentication/HttpInterceptor';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainComponent,
-    TopbarComponent
+    TopbarComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +37,19 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NgbModule,
   ],
   providers: [
-    AuthService,
+    OauthService,
+    AuthGuardService,
+    JwtokenService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenAuthHttpInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RequestTimeLogHttpInterceptor,
+      multi: true
+    }
    ],
   bootstrap: [AppComponent]
 })

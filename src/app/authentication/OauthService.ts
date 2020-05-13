@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { tokenModel } from '../model/codeModel';
 import { WeatherForecastModel } from '../model/WeatherForecastModel';
-
+import configure from '../../../configure';
 
 @Injectable()
-export class AuthService {
+export class OauthService {
   tokenData: tokenModel;
   apiData: WeatherForecastModel;
   constructor(private http: HttpClient) {}
@@ -17,8 +17,8 @@ export class AuthService {
       headers,
     };
     return this.http.post<tokenModel>(
-      this.getAuthServerToken(),
-      this.getPararameter(code).toString(),
+      configure.authServerTokenEndpoint,
+      this.getokenPararameter(code).toString(),
       options
     );
   }
@@ -30,37 +30,22 @@ export class AuthService {
       headers,
     };
     return this.http.post<tokenModel>(
-      this.getAuthServerToken(),
+      configure.authServerTokenEndpoint,
       this.getRefreshPararameter().toString(),
       options
     );
   }
   getAPIData() {
-    let apiData: WeatherForecastModel;
-
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${localStorage.getItem('access_token')}`,
-    });
-    const options = {
-      headers,
-    };
     return this.http.get<WeatherForecastModel>(
-      `https://localhost:44398/weatherforecast`,
-      options
+      `${configure.apiServer}weatherforecast`
     );
   }
-  getAuthServerConfig() {
-    return `https://localhost:5001/connect/authorize?client_id=spa&scope=openid profile api1 offline_access&response_type=code&redirect_uri=http://localhost:4200/home`;
-  }
-  getAuthServerToken() {
-    return `https://localhost:5001/connect/token`;
-  }
-  getPararameter(code: string) {
+  getokenPararameter(code: string) {
     const body = new URLSearchParams();
     body.set('client_id', 'spa');
     body.set('code', code);
     body.set('grant_type', 'authorization_code');
-    body.set('redirect_uri', 'http://localhost:4200/home');
+    body.set('redirect_uri', 'http://localhost:4200/login');
 
     return body;
   }
@@ -69,7 +54,7 @@ export class AuthService {
     body.set('client_id', 'spa');
     body.set('refresh_token', localStorage.getItem('refresh_token'));
     body.set('grant_type', 'refresh_token');
-    body.set('redirect_uri', 'http://localhost:4200/home');
+    body.set('redirect_uri', 'http://localhost:4200/login');
 
     return body;
   }
