@@ -46,6 +46,7 @@ export class OauthService {
     body.set('code', code);
     body.set('grant_type', 'authorization_code');
     body.set('redirect_uri', 'http://localhost:4200/login');
+    body.set('client_secret', 'code');
 
     return body;
   }
@@ -55,6 +56,7 @@ export class OauthService {
     body.set('refresh_token', localStorage.getItem('refresh_token'));
     body.set('grant_type', 'refresh_token');
     body.set('redirect_uri', 'http://localhost:4200/login');
+    body.set('client_secret', 'code');
 
     return body;
   }
